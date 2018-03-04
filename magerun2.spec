@@ -8,7 +8,7 @@ Summary: n98-magerun2. The swiss army knife for Magento developers
 
 License: GPLv2+ and MIT and BSD
 URL: http://magerun.net/
-Source0: https://github.com/netz98/n98-magerun2/archive/%{version}.tar.gz#/n98-magerun2-%{version}.tar.gz
+Source0: https://files.magerun.net/n98-magerun2-%{version}.phar
 
 BuildArch: noarch
 
@@ -27,7 +27,7 @@ of work time. All commands are extendable by a module API.
 
 
 %prep
-%setup -n n98-magerun2-%{version}
+# Nothing to do
 
 
 %build
@@ -37,7 +37,7 @@ of work time. All commands are extendable by a module API.
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 %{__mkdir} -p $RPM_BUILD_ROOT%{_bindir}
-%{__install} -m 755 -p bin/n98-magerun2 $RPM_BUILD_ROOT%{_bindir}/magerun2
+%{__install} -m 755 -p %SOURCE0 $RPM_BUILD_ROOT%{_bindir}/magerun2
 
 %files
 %defattr(-,root,root)
