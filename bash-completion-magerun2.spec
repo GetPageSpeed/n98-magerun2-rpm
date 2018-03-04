@@ -28,10 +28,10 @@ modules with the magerun2 command.
 %{__install} -Dp -m0755 res/autocompletion/bash/n98-magerun2.phar.bash $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
 %post
-/etc/profile.d/bash_completion.sh
+. /etc/profile.d/bash_completion.sh
 
 %postun
-/etc/profile.d/bash_completion.sh
+. /etc/profile.d/bash_completion.sh
 
 %files
 %defattr(-, root, root, 0755)
