@@ -35,6 +35,8 @@ of work time. All commands are extendable by a module API.
 
 
 %install
+%{__rm} -rf $RPM_BUILD_ROOT
+%{__mkdir} -p $RPM_BUILD_ROOT%{_bindir}
 %{__install} -m 755 -p bin/n98-magerun2 $RPM_BUILD_ROOT%{_bindir}/magerun2
 
 %files

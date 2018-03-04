@@ -23,6 +23,7 @@ modules with the magerun2 command.
 # Nothing to do
 
 %install
+%{__rm} -rf $RPM_BUILD_ROOT
 %{__install} -d -m0755 $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 %{__install} -Dp -m0755 res/autocompletion/bash/n98-magerun2.phar.bash $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
 
