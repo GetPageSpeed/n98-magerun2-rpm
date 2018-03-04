@@ -6,7 +6,7 @@ License: GPL
 Group: System Environment/Shells
 URL: http://magerun.net/
 
-Source0: https://github.com/netz98/n98-magerun2/archive/%{version}.tar.gz
+Source0: https://github.com/netz98/n98-magerun2/archive/%{version}.tar.gz#/n98-magerun2-%{version}.tar.gz
 
 BuildArch: noarch
 Requires: bash-completion
