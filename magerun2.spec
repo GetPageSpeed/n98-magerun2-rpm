@@ -27,7 +27,7 @@ of work time. All commands are extendable by a module API.
 
 
 %prep
-%setup -q
+%setup -n n98-magerun2-%{version}
 
 
 %build

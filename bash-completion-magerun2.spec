@@ -16,7 +16,7 @@ Install this package to enable tab-completion of functions and installed
 modules with the magerun2 command.
 
 %prep
-%setup -q
+%setup -n n98-magerun2-%{version}
 
 
 %build
