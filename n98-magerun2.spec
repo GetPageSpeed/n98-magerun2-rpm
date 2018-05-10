@@ -41,8 +41,7 @@ of work time. All commands are extendable by a module API.
 
 %files
 %defattr(-,root,root)
-%{_bindir}/magerun2
-
+%{_bindir}/%{name}
 
 %changelog
 * Sun Mar 4 2018 Danila Vershinin <info@getpagespeed.com> 2.1.2-1
