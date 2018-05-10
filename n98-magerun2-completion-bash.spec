@@ -1,5 +1,5 @@
 Summary: A bash completion helper for n98-magerun2
-Name: bash-completion-magerun2
+Name: n98-magerun2-completion-bash
 Version: 2.1.2
 Release: 1%{?dist}
 License: GPL
