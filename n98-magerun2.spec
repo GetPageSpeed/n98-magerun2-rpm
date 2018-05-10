@@ -1,13 +1,13 @@
 # License: MIT
 # http://opensource.org/licenses/MIT
 
-Name: magerun2
+Name: n98-magerun2
 Version: 2.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: n98-magerun2. The swiss army knife for Magento developers
 
 License: GPLv2+ and MIT and BSD
-URL: http://magerun.net/
+URL: https://magerun.net/
 Source0: https://files.magerun.net/n98-magerun2-%{version}.phar
 
 BuildArch: noarch
