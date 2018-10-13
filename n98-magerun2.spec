@@ -2,8 +2,8 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 2.1.2
-Release: 2%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 Summary: n98-magerun2. The swiss army knife for Magento developers
 
 License: GPLv2+ and MIT and BSD
@@ -44,6 +44,9 @@ of work time. All commands are extendable by a module API.
 %{_bindir}/%{name}
 
 %changelog
+* Sat Oct 13 2018 Danila Vershinin <info@getpagespeed.com> 2.2.0-1
+- upstream version auto-updated to 2.2.0
+
 * Sun Mar 4 2018 Danila Vershinin <info@getpagespeed.com> 2.1.2-1
 - update to 2.1.2
 
