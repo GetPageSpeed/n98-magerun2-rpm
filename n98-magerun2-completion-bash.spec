@@ -9,7 +9,7 @@ Version: 2.2.0
 Release: 1%{?dist}
 License: GPL
 Group: System Environment/Shells
-URL: http://magerun.net/
+URL: https://github.com/%{upstream_github}/%{upstream_name}
 
 Source0: %{url}/archive/%{upstream_prefix}%{version}/%{upstream_name}-%{upstream_prefix}%{version}.tar.gz
 
