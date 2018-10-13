@@ -1,3 +1,8 @@
+%global upstream_github netz98
+%global upstream_name n98-magerun2
+# %%global upstream_prefix v
+%global upstream_prefix %{nil}
+
 Summary: A bash completion helper for n98-magerun2
 Name: n98-magerun2-completion-bash
 Version: 2.2.0
@@ -6,7 +11,7 @@ License: GPL
 Group: System Environment/Shells
 URL: http://magerun.net/
 
-Source0: https://github.com/netz98/n98-magerun2/archive/%{version}.tar.gz#/n98-magerun2-%{version}.tar.gz
+Source0: %{url}/archive/%{upstream_prefix}%{version}/%{upstream_name}-%{upstream_prefix}%{version}.tar.gz
 
 BuildArch: noarch
 Requires: bash-completion
