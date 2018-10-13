@@ -9,7 +9,7 @@ jobs:
             name: "Build all the .spec files for EL7 via Docker image."
             command: docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION} /bin/bash -c "rm -rf /etc/yum.repos.d/CentOS-Vault.repo; rm -rf /etc/yum.repos.d/CentOS-Sources.repo; /usr/bin/build"
             environment:
-              DOCKER_IMAGE: alectolytic/rpmbuilder
+              DOCKER_IMAGE: getpagespeed/rpmbuilder
               OS_ARCH: x86_64
               OS_TYPE: centos
               OS_DIST: epel
@@ -30,7 +30,7 @@ jobs:
             name: "Build all the .spec files for EL6 via Docker image."
             command: docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION} /bin/bash -c "sed -i 's/-v OUTPUT_UID/-z "${OUTPUT_UID}"/' /usr/bin/build; /usr/bin/build"
             environment:
-              DOCKER_IMAGE: alectolytic/rpmbuilder
+              DOCKER_IMAGE: getpagespeed/rpmbuilder
               OS_ARCH: x86_64
               OS_TYPE: centos
               OS_DIST: epel
