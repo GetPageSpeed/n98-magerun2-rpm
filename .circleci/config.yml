@@ -62,7 +62,7 @@ jobs:
           context: getpagespeed-builder  
       - run:
           name: "Trigger SSH hook"
-          command: ssh $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
+          command: ssh $GPS_BUILD_USER@$GPS_BUILD_SERVER "nohup ~/scripts/incoming.sh $CIRCLE_PROJECT_REPONAME > ~/incoming/process.log 2>&1&"
           context: getpagespeed-builder
 workflows:
   version: 2

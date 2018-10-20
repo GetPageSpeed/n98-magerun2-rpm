@@ -3,7 +3,7 @@
 
 Name: n98-magerun2
 Version: 2.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: n98-magerun2. The swiss army knife for Magento developers
 
 License: GPLv2+ and MIT and BSD
