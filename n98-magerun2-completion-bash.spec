@@ -6,7 +6,7 @@
 Summary: A bash completion helper for n98-magerun2
 Name: n98-magerun2-completion-bash
 Version: 2.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL
 Group: System Environment/Shells
 URL: https://github.com/%{upstream_github}/%{upstream_name}
