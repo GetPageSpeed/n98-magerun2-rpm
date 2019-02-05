@@ -5,7 +5,7 @@
 
 Summary: A bash completion helper for n98-magerun2
 Name: n98-magerun2-completion-bash
-Version: 3.0.3
+Version: 3.0.4
 Release: 1%{?dist}
 License: GPL
 Group: System Environment/Shells
@@ -43,6 +43,9 @@ modules with the magerun2 command.
 %config %{_sysconfdir}/bash_completion.d/*
 
 %changelog
+* Tue Feb 05 2019 Danila Vershinin <info@getpagespeed.com> 3.0.4-1
+- upstream version auto-updated to 3.0.4
+
 * Fri Dec 21 2018 Danila Vershinin <info@getpagespeed.com> 3.0.3-1
 - upstream version auto-updated to 3.0.3
 
