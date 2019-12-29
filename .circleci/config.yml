@@ -1,79 +1,99 @@
 version: 2
-jobs:
-  "el7":
-      parallelism: 1
-      machine: true
-      steps:
-        - checkout
-        - run:
-            name: "Build all the .spec files for EL7 via Docker image."
-            command: docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION} /bin/bash -c "rm -rf /etc/yum.repos.d/CentOS-Vault.repo; rm -rf /etc/yum.repos.d/CentOS-Sources.repo; /usr/bin/build"
-            environment:
-              DOCKER_IMAGE: getpagespeed/rpmbuilder
-              OS_ARCH: x86_64
-              OS_TYPE: centos
-              OS_DIST: epel
-              OS_VERSION: 7 
-        - run:
-            name: "Actual check. Failure to stat will result in failed CircleCi test in GitHub"
-            command: stat *.rpm
-        - persist_to_workspace:
-            root: /home/circleci/project
-            paths:
-              - "*.rpm"
-  "el6":
-      parallelism: 1
-      machine: true
-      steps:
-        - checkout
-        - run:
-            name: "Build all the .spec files for EL6 via Docker image."
-            command: docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION} /bin/bash -c "sed -i 's/-v OUTPUT_UID/-z "${OUTPUT_UID}"/' /usr/bin/build; /usr/bin/build"
-            environment:
-              DOCKER_IMAGE: getpagespeed/rpmbuilder
-              OS_ARCH: x86_64
-              OS_TYPE: centos
-              OS_DIST: epel
-              OS_VERSION: 6
-        - run:
-            name: "Actual check. Failure to stat will result in failed CircleCi test in GitHub"
-            command: stat *.rpm
-        - persist_to_workspace:
-            root: /home/circleci/project
-            paths:
-              - "*.rpm"
-  deploy:
-    machine: true
-    steps:
-      - attach_workspace:
-          at: /home/circleci/project
+
+defaults: &defaults
+    working_directory: /sources # directory where steps will run
+    environment:
+      RPMLINT: 1
+    steps: # a set of executable commands
+      - checkout # special step to check out source code to working directory
       - run:
-          name: "Delete stupid keys that was added by CircleCI by default"
-          command: ssh-add -D
-      - add_ssh_keys:
-          fingerprints:
-            - "8c:a4:dd:2c:47:4c:63:aa:90:0b:e0:d6:15:be:87:82"
-      - run:
-          name: "Ensure project specific upload directory to avoid deploy collisions"
-          command: ssh $GPS_BUILD_USER@$GPS_BUILD_SERVER "mkdir -p ~/incoming/$CIRCLE_PROJECT_REPONAME"
-      - run:
-          name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/$CIRCLE_PROJECT_REPONAME/
-          context: getpagespeed-builder  
-      - run:
-          name: "Trigger SSH hook"
-          command: ssh $GPS_BUILD_USER@$GPS_BUILD_SERVER "nohup ~/scripts/incoming.sh $CIRCLE_PROJECT_REPONAME > ~/incoming/$CIRCLE_PROJECT_REPONAME/process.log 2>&1&"
-          context: getpagespeed-builder
+          name: "Run the build itself: this will do rpmlint and check RPMs existence among other things.."
+          command: build
+      - persist_to_workspace:
+          root: /output
+          paths:
+            - "*.rpm"
+deploy: &deploy
+  docker:
+    - image: kroniak/ssh-client
+  working_directory: /output
+  steps:
+    - attach_workspace:
+        at: /output
+    - add_ssh_keys:
+        fingerprints:
+          - "8c:a4:dd:2c:47:4c:63:aa:90:0b:e0:d6:15:be:87:82"
+    - run:
+        name: "Ensure project specific upload directory to avoid deploy collisions"
+        command: >
+          ssh -o StrictHostKeyChecking=no
+          $GPS_BUILD_USER@$GPS_BUILD_SERVER
+          "mkdir -p ~/incoming/$CIRCLE_PROJECT_REPONAME/$DISTRO"
+    - run:
+        name: "Deploy all RPMs to GetPageSpeed repo."
+        command: >
+          scp -o StrictHostKeyChecking=no -q -r *.rpm
+          $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/$CIRCLE_PROJECT_REPONAME/$DISTRO/
+    - run:
+        name: "Trigger Deploy Hook."
+        command: >
+          ssh -o StrictHostKeyChecking=no -q
+          $GPS_BUILD_USER@$GPS_BUILD_SERVER
+          "nohup ~/scripts/incoming.sh $CIRCLE_PROJECT_REPONAME/$DISTRO > ~/incoming/$CIRCLE_PROJECT_REPONAME/$DISTRO/process.log 2>&1&"
+jobs: # a collection of steps
+  el6:
+    docker: # run the steps with Docker
+      - image: getpagespeed/rpmbuilder:centos-6
+    <<: *defaults
+  el7:
+    docker:
+      - image: getpagespeed/rpmbuilder:centos-7
+    <<: *defaults
+  el8:
+    docker:
+      - image: getpagespeed/rpmbuilder:centos-8
+    <<: *defaults
+  deploy-el6:
+    <<: *deploy
+    environment:
+      DISTRO: el6
+  deploy-el7:
+    <<: *deploy
+    environment:
+      DISTRO: el7
+  deploy-el8:
+    <<: *deploy
+    environment:
+      DISTRO: el8
 workflows:
   version: 2
-  build_deploy:
+  build-deploy-el6:
     jobs:
-      - "el7"
-      - "el6"
-      - deploy:
+      - el6
+      - deploy-el6:
+          context: org-global
           requires:
-            - "el7"
-            - "el6"
+            - el6
           filters:
             branches:
-              only: master      
+              only: master
+  build-deploy-el7:
+    jobs:
+      - el7
+      - deploy-el7:
+          context: org-global
+          requires:
+            - el7
+          filters:
+            branches:
+              only: master
+  build-deploy-el8:
+    jobs:
+      - el8
+      - deploy-el8:
+          context: org-global
+          requires:
+            - el8
+          filters:
+            branches:
+              only: master
