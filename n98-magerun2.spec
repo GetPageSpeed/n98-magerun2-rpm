@@ -122,6 +122,9 @@ sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 
 
 %changelog
+* Tue Jan 21 2020 Danila Vershinin <info@getpagespeed.com> 4.0.2.4.0.2-1
+- upstream version auto-updated to 4.0.2.4.0.2
+
 * Mon Jan 20 2020 Danila Vershinin <info@getpagespeed.com> 4.0.2.4.0.2-1
 - upstream version auto-updated to 4.0.2.4.0.2
 
