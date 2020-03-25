@@ -69,7 +69,7 @@ sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 %{__mkdir} -p $RPM_BUILD_ROOT%{_bindir}
-%{__install} -m 755 -p %SOURCE100 $RPM_BUILD_ROOT%{_bindir}/%{name}
+%{__install} -m 755 -p %SOURCE10 $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # bash completions
 %if 0%{?rhel} && 0%{?rhel} < 7
