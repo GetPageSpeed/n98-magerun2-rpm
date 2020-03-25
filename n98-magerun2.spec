@@ -6,8 +6,8 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 4.0.2
-Release: 1%{?dist}.gps
+Version: 4.0.4
+Release: 1%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
 License: GPLv2+ and MIT and BSD
@@ -123,6 +123,9 @@ sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 
 
 %changelog
+* Wed Mar 25 2020 Danila Vershinin <info@getpagespeed.com> 4.0.4-1
+- upstream version auto-updated to 4.0.4
+
 * Fri Jan 03 2020 Danila Vershinin <info@getpagespeed.com> 4.0.2-1
 - new upstream release
 - added zsh completions subpackage
