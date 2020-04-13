@@ -4,7 +4,7 @@
 
 # php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
 %if 0%{?rhel} && 0%{?rhel} >= 8
-%global phing_phar phing-2.16.3.phar
+%global phing_phar %{SOURCE1}
 %else
 %global phing_phar %{_bindir}/phing
 %endif
