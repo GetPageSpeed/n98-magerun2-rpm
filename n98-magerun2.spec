@@ -27,8 +27,9 @@ BuildArch: noarch
 
 # php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
 %if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: php-cli php-pear-phing composer
+BuildRequires: php-cli php-pear-phing
 %endif
+BuildRequires: composer
 
 Requires:  php(language) >= 7.2
 Requires:  php-mbstring
@@ -73,6 +74,8 @@ modules with the %{name} command in zsh shell.
 
 # remove shebang from bash completions
 sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
+
+chmod 0755 %{SOURCE1}
 
 
 %build
