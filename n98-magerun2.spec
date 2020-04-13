@@ -25,7 +25,10 @@ Patch0: https://patch-diff.githubusercontent.com/raw/netz98/n98-magerun2/pull/53
 
 BuildArch: noarch
 
+# php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
+%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires: php-cli php-pear-phing composer
+%endif
 
 Requires:  php(language) >= 7.2
 Requires:  php-mbstring
@@ -67,6 +70,7 @@ modules with the %{name} command in zsh shell.
 
 %prep
 %autosetup -n %{name}-%{version}
+
 # remove shebang from bash completions
 sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 
