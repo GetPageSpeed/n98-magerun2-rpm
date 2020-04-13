@@ -7,18 +7,19 @@
 
 Name: n98-magerun2
 Version: 4.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
 License: GPLv2+ and MIT and BSD
 URL: https://github.com/%{upstream_github}/%{name}
-Source0: %{url}/archive/%{upstream_prefix}%{version}/%{name}-%{upstream_prefix}%{version}.tar.gz
-# if we set Source100, this is mistakenly detected as a module
-Source10: https://files.magerun.net/n98-magerun2-%{version}.phar
+Source0: %{url}/archive/%{upstream_prefix}%{version}.tar.gz
+Patch0: https://patch-diff.githubusercontent.com/raw/netz98/n98-magerun2/pull/533.diff
 
 BuildArch: noarch
 
-Requires:  php(language) >= 5.5
+BuildRequires: php-cli php-pear-phing composer
+
+Requires:  php(language) >= 7.2
 Requires:  php-mbstring
 Requires:  php-openssl
 Requires:  php-xml
@@ -63,13 +64,14 @@ sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 
 
 %build
-# Nothing to do
+ulimit -Sn "$(ulimit -Hn)"
+PHP_COMMAND="/usr/bin/php -d phar.readonly=0" /usr/bin/phing dist_clean
 
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 %{__mkdir} -p $RPM_BUILD_ROOT%{_bindir}
-%{__install} -m 755 -p %SOURCE10 $RPM_BUILD_ROOT%{_bindir}/%{name}
+%{__install} -m 755 -p %{name}.phar $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # bash completions
 %if 0%{?rhel} && 0%{?rhel} < 7
