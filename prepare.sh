@@ -23,3 +23,5 @@ fi
 if [[ "${RHEL}" -le "7" ]]; then
   yum -y install --disablerepo=remi* php-pear-phing
 fi
+
+echo "phar.readonly=0" >> /etc/php.ini
