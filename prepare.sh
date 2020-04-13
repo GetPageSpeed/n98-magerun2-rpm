@@ -17,5 +17,7 @@ else
 fi
 
 # php-pear-phing in remi is no good
-yum -y install --disablerepo=remi* php-pear-phing
-
+# no dependencies in EL8 for php-pear-phing, using phing's phar
+if [[ "${RHEL}" -le "7" ]]; then
+  yum -y install --disablerepo=remi* php-pear-phing
+fi
