@@ -2,6 +2,13 @@
 # %%global upstream_prefix v
 %global upstream_prefix %{nil}
 
+# php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
+%if 0%{?rhel} && 0%{?rhel} >= 8
+%global phing_phar phing-2.16.3.phar
+%else
+%global phing_phar %{_bindir}/phing
+%endif
+
 # License: MIT
 # http://opensource.org/licenses/MIT
 
@@ -13,7 +20,8 @@ Summary: The Swiss Army knife for Magento 2 developers
 License: GPLv2+ and MIT and BSD
 URL: https://github.com/%{upstream_github}/%{name}
 Source0: %{url}/archive/%{upstream_prefix}%{version}.tar.gz
-Patch0: https://patch-diff.githubusercontent.com/raw/netz98/n98-magerun2/pull/533.diff
+Source1: https://www.phing.info/get/phing-2.16.3.phar
+Patch0: https://patch-diff.githubusercontent.com/raw/netz98/n98-magerun2/pull/533.patch
 
 BuildArch: noarch
 
@@ -65,7 +73,7 @@ sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
 
 %build
 ulimit -Sn "$(ulimit -Hn)"
-PHP_COMMAND="/usr/bin/php -d phar.readonly=0" /usr/bin/phing dist_clean
+PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{phing_phar} dist_clean
 
 
 %install
