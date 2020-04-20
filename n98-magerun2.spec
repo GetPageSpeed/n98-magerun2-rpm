@@ -21,7 +21,6 @@ License: GPLv2+ and MIT and BSD
 URL: https://github.com/%{upstream_github}/%{name}
 Source0: %{url}/archive/%{upstream_prefix}%{version}.tar.gz
 Source1: https://www.phing.info/get/phing-2.16.3.phar
-Patch0: https://patch-diff.githubusercontent.com/raw/netz98/n98-magerun2/pull/533.patch
 
 BuildArch: noarch
 
