@@ -8,7 +8,9 @@
 ## Installation (CentOS/RHEL 6+)
 
 ```bash
-sudo yum install https://extras.getpagespeed.com/release-el$(rpm -E %{rhel})-latest.rpm
-sudo yum install n98-magerun2
+# First, install Remi's PHP >= 7.2
+
+sudo yum -y install https://extras.getpagespeed.com/release-latest.rpm
+sudo yum -y install n98-magerun2
 ```
 
