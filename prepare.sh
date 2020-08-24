@@ -22,6 +22,8 @@ fi
 # no dependencies in EL8 for php-pear-phing, using phing's phar
 if [[ "${RHEL}" -le "7" ]]; then
   yum -y install --disablerepo=remi* php-pear-phing
+  # ensure upgrading system PHP to 7.2
+  yum -y upgrade php*
 fi
 
 echo "phar.readonly=0" >> /etc/php.ini
