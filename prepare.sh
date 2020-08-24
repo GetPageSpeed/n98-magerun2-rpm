@@ -4,7 +4,7 @@ RHEL=$(rpm -E %{rhel})
 
 yum -y install http://rpms.remirepo.net/enterprise/remi-release-${RHEL}.rpm
 
-# Remi: PHP version older than 7.2 are not available for RHEL 8
+# n98-magerun2 supports only PHP 7.2 and above
 if [[ "${RHEL}" -ge "8" ]]; then
   dnf -y install yum-utils
   dnf -y module reset php
@@ -12,7 +12,7 @@ if [[ "${RHEL}" -ge "8" ]]; then
   # composer is in there:
   dnf config-manager --enable remi
 else
-  REPO=remi-php56
+  REPO=remi-php72
   yum -y install yum-utils
   yum-config-manager --enable remi
   yum-config-manager --enable ${REPO}
