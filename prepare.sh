@@ -9,8 +9,10 @@ if [[ "${RHEL}" -ge "8" ]]; then
   dnf -y install yum-utils
   dnf -y module reset php
   dnf -y module install php:remi-7.3
-  # composer is in there:
+  # new composer is in there:
   dnf config-manager --enable remi
+  dnf -y install composer
+  dnf -y update composer
 else
   REPO=remi-php73
   yum -y install yum-utils
