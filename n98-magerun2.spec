@@ -26,14 +26,24 @@ BuildArch: noarch
 
 # php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
 %if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: php-cli php-pear-phing
+BuildRequires: php-cli
+BuildRequires: php-pear-phing
 %endif
 BuildRequires: composer
+BuildRequires: php-xml
+BuildRequires: php-pdo
+BuildRequires: php-json
+# provides required ext-iconv, ext-posix, ext-zip
+BuildRequires: php-common
 
 Requires:  php(language) >= 7.2
 Requires:  php-mbstring
 Requires:  php-openssl
 Requires:  php-xml
+Requires:  php-pdo
+Requires:  php-json
+Requires:  php-common
+
 
 # TODO: Get info from phpcompatinfo reports for 2.1.2
 # TODO actually build this stuff
