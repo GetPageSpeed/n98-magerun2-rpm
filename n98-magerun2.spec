@@ -79,6 +79,7 @@ chmod 0755 %{SOURCE1}
 
 %build
 ulimit -Sn "$(ulimit -Hn)"
+composer install
 PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{phing_phar} dist_clean
 
 
