@@ -13,7 +13,7 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 4.7.0
+Version: 4.8.0
 Release: 1%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
@@ -149,6 +149,9 @@ PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{phing_phar} dist_clean
 
 
 %changelog
+* Sun Dec 05 2021 Danila Vershinin <info@getpagespeed.com> 4.8.0-1
+- release 4.8.0
+
 * Tue Jul 06 2021 Danila Vershinin <info@getpagespeed.com> 4.7.0-1
 - release 4.7.0
 
