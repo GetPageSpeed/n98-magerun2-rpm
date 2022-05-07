@@ -107,7 +107,7 @@ chmod +x %{name}.phar
 $PHP_COMMAND -f %{name}.phar -- --version
 
 # List new phar file for debugging
-ls -al "$PHAR_OUTPUT_FILE"
+ls -al "%{name}.phar"
 
 
 %install
