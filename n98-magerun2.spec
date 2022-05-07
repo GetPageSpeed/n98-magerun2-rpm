@@ -9,7 +9,7 @@
 
 Name: n98-magerun2
 Version: 5.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
 License: GPLv2+ and MIT and BSD
@@ -81,10 +81,33 @@ chmod 0755 %{SOURCE1}
 
 %build
 ulimit -Sn "$(ulimit -Hn)"
-
 PHP_COMMAND="%{_bindir}/php -d phar.readonly=0"
-${PHP_COMMAND} %{_bindir}/composer install
-${PHP_COMMAND} %{box_phar} compile
+COMPOSER_CMD="${PHP_COMMAND} %{_bindir}/composer"
+
+# set composer suffix, otherwise Composer will generate a file with a unique identifier
+# which will then create a no reproducable phar file with a differenz MD5
+$COMPOSER_CMD config autoloader-suffix N98MagerunNTS
+
+$COMPOSER_CMD install
+$PHP_COMMAND %{box_phar} compile
+
+# unset composer suffix
+$COMPOSER_CMD config autoloader-suffix --unset
+
+# Set timestamp of newly generted phar file to the commit timestamp
+# $PHP_BIN -f build/phar/phar-timestamp.php -- $LAST_COMMIT_TIMESTAMP
+
+# Run a signature verification after the timestamp manipulation
+$PHP_COMMAND %{box_phar} verify $PHAR_OUTPUT_FILE
+
+# make phar executable
+chmod +x %{name}.phar
+
+# Print version of new phar file which is also a test
+$PHP_COMMAND -f %{name}.phar -- --version
+
+# List new phar file for debugging
+ls -al "$PHAR_OUTPUT_FILE"
 
 
 %install
