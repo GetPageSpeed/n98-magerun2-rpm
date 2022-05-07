@@ -1,5 +1,7 @@
 # n98-magerun2-rpm
 
+RPM builds of [`n98-magerun2`](https://github.com/netz98/n98-magerun2).
+
 |CI|Purpose|Status|
 |---|---|---|
 |Travis|Tests buildability, deploys to PackageCloud|[![Build Status](https://travis-ci.org/GetPageSpeed/n98-magerun2-rpm.svg?branch=master)](https://travis-ci.org/GetPageSpeed/n98-magerun2-rpm)|

@@ -2,12 +2,7 @@
 # %%global upstream_prefix v
 %global upstream_prefix %{nil}
 
-# php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
-%if 0%{?rhel} && 0%{?rhel} >= 8
-%global phing_phar %{SOURCE1}
-%else
-%global phing_phar %{_bindir}/phing
-%endif
+%global box_phar %{SOURCE1}
 
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -20,15 +15,11 @@ Summary: The Swiss Army knife for Magento 2 developers
 License: GPLv2+ and MIT and BSD
 URL: https://github.com/%{upstream_github}/%{name}
 Source0: %{url}/archive/%{upstream_prefix}%{version}.tar.gz
-Source1: https://www.phing.info/get/phing-2.16.3.phar
+Source1: https://github.com/box-project/box/releases/download/3.14.0/box.phar
 
 BuildArch: noarch
 
-# php-pear-ping on EL8 has missing dependencies, so we use .phar from the official website
-%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires: php-cli
-BuildRequires: php-pear-phing
-%endif
 BuildRequires: composer
 BuildRequires: php-xml
 BuildRequires: php-pdo
@@ -36,7 +27,7 @@ BuildRequires: php-json
 # provides required ext-iconv, ext-posix, ext-zip
 BuildRequires: php-common
 
-Requires:  php(language) >= 7.2
+Requires:  php(language) >= 7.3
 Requires:  php-mbstring
 Requires:  php-openssl
 Requires:  php-xml
@@ -89,7 +80,7 @@ chmod 0755 %{SOURCE1}
 
 %build
 ulimit -Sn "$(ulimit -Hn)"
-PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{phing_phar} dist_clean
+PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{box_phar} compile
 
 
 %install
