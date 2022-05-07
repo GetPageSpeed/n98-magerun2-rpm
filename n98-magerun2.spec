@@ -70,7 +70,8 @@ modules with the %{name} command in zsh shell.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+# -S git will init a git repo, required for building phar
+%autosetup -n %{name}-%{version} -S git
 
 # remove shebang from bash completions
 sed -i -e '1d' res/autocompletion/bash/%{name}.phar.bash
