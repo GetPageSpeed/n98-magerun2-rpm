@@ -98,7 +98,7 @@ $COMPOSER_CMD config autoloader-suffix --unset
 # $PHP_BIN -f build/phar/phar-timestamp.php -- $LAST_COMMIT_TIMESTAMP
 
 # Run a signature verification after the timestamp manipulation
-$PHP_COMMAND %{box_phar} verify $PHAR_OUTPUT_FILE
+$PHP_COMMAND %{box_phar} verify %{name}.phar
 
 # make phar executable
 chmod +x %{name}.phar
