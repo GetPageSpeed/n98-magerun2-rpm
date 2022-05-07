@@ -80,7 +80,10 @@ chmod 0755 %{SOURCE1}
 
 %build
 ulimit -Sn "$(ulimit -Hn)"
-PHP_COMMAND="%{_bindir}/php -d phar.readonly=0" %{box_phar} compile
+
+PHP_COMMAND="%{_bindir}/php -d phar.readonly=0"
+${PHP_COMMAND} %{_bindir}/composer install
+${PHP_COMMAND} %{box_phar} compile
 
 
 %install
