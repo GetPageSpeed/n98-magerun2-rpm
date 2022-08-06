@@ -8,8 +8,8 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 5.1.0
-Release: 2%{?dist}
+Version: 5.2.0
+Release: 1%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
 License: GPLv2+ and MIT and BSD
@@ -167,6 +167,9 @@ ls -al "%{name}.phar"
 
 
 %changelog
+* Sat Aug 06 2022 Danila Vershinin <info@getpagespeed.com> 5.2.0-1
+- release 5.2.0
+
 * Sat May 07 2022 Danila Vershinin <info@getpagespeed.com> 5.1.0-1
 - release 5.1.0
 
