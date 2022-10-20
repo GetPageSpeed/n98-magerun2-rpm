@@ -27,7 +27,7 @@ BuildRequires: php-json
 # provides required ext-iconv, ext-posix, ext-zip
 BuildRequires: php-common
 
-Requires:  php(language) >= 7.3
+Requires:  php(language) >= 7.4
 Requires:  php-mbstring
 Requires:  php-openssl
 Requires:  php-xml
