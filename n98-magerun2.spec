@@ -8,7 +8,7 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 6.0.1
+Version: 6.1.0
 Release: 1%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
@@ -167,6 +167,9 @@ ls -al "%{name}.phar"
 
 
 %changelog
+* Thu Oct 20 2022 Danila Vershinin <info@getpagespeed.com> 6.1.0-1
+- release 6.1.0
+
 * Thu Sep 29 2022 Danila Vershinin <info@getpagespeed.com> 6.0.1-1
 - release 6.0.1
 
