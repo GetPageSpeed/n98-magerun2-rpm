@@ -114,6 +114,7 @@ ls -al "%{name}.phar"
 %{__rm} -rf $RPM_BUILD_ROOT
 %{__mkdir} -p $RPM_BUILD_ROOT%{_bindir}
 %{__install} -m 755 -p %{name}.phar $RPM_BUILD_ROOT%{_bindir}/%{name}
+ln -s ./%{name} %{buildroot}%{_bindir}/magerun2
 
 # bash completions
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -145,6 +146,7 @@ ls -al "%{name}.phar"
 %files
 %defattr(-,root,root)
 %{_bindir}/%{name}
+%{_bindir}/magerun2
 # Virtually add license macro for EL6:
 %{!?_licensedir:%global license %%doc}
 %license MIT-LICENSE.txt
