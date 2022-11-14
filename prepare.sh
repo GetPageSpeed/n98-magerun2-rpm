@@ -1,7 +1,7 @@
 #!/bin/bash
 
-RHEL=$(rpm -E 0%{?rhel})
-FEDORA=$(rpm -E 0%{?fedora})
+RHEL=$(rpm -E 0%{?rhel} | bc)
+FEDORA=$(rpm -E 0%{?fedora} | bc)
 yum -y install http://rpms.remirepo.net/enterprise/remi-release-${RHEL}.rpm
 
 # n98-magerun2 supports only PHP 7.2 and above
