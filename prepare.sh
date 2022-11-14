@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RHEL=$(rpm -E 0%{?rhel}})
+RHEL=$(rpm -E 0%{?rhel})
 FEDORA=$(rpm -E 0%{?fedora})
 yum -y install http://rpms.remirepo.net/enterprise/remi-release-${RHEL}.rpm
 
