@@ -84,6 +84,9 @@ ulimit -Sn "$(ulimit -Hn)"
 PHP_COMMAND="%{_bindir}/php -d phar.readonly=0"
 COMPOSER_CMD="${PHP_COMMAND} %{_bindir}/composer"
 
+# allow composer to run as root
+export COMPOSER_ALLOW_SUPERUSER=1
+
 # set composer suffix, otherwise Composer will generate a file with a unique identifier
 # which will then create a no reproducable phar file with a differenz MD5
 $COMPOSER_CMD config autoloader-suffix N98MagerunNTS
@@ -326,4 +329,3 @@ ln -s ./%{name} %{buildroot}%{_bindir}/magerun2
 
 * Sun Mar 4 2018 Danila Vershinin <info@getpagespeed.com> 2.1.2-1
 - update to 2.1.2
-
