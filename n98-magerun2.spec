@@ -8,7 +8,7 @@
 # http://opensource.org/licenses/MIT
 
 Name: n98-magerun2
-Version: 8.1.1
+Version: 9.0.1
 Release: 1%{?dist}
 Summary: The Swiss Army knife for Magento 2 developers
 
@@ -172,6 +172,9 @@ ln -s ./%{name} %{buildroot}%{_bindir}/magerun2
 
 
 %changelog
+* Wed Jun 25 2025 Danila Vershinin <info@getpagespeed.com> 9.0.1-1
+- release 9.0.1
+
 * Tue Apr 29 2025 Danila Vershinin <info@getpagespeed.com> 8.1.1-1
 - release 8.1.1
 
