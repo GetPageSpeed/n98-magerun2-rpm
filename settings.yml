@@ -1,0 +1,8 @@
+exclude:
+  # n98-magerun2 9.x requires PHP >= 8.1. remi enterprise/7 php82 is
+  # x86_64-only; SLES has no remi coverage. Drop distros that cannot
+  # satisfy PHP 8.1 via the prepare.sh path.
+  - el7
+  - amzn2
+  - sles15
+  - sles16
