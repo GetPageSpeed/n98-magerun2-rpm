@@ -34,13 +34,13 @@ jobs:
       dist:
         description: The dist tag of OS to build for
         type: string
-      enable_repos:
-        type: string
-        default: ''
       resource_class:
         description: The resource class to use for the build
         type: string
         default: small
+      enable_repos:
+        type: string
+        default: ''
     resource_class: << parameters.resource_class >>
     executor:
       name: rpmbuilder
@@ -89,7 +89,7 @@ jobs:
         fingerprints:
         - 8c:a4:dd:2c:47:4c:63:aa:90:0b:e0:d6:15:be:87:82
     - run:
-        name: Ensure project specific upload directory to avoid deploy collisions
+        name: Create project upload directory
         command: >-
           ssh -o StrictHostKeyChecking=no $GPS_BUILD_USER@$GPS_BUILD_SERVER "mkdir
           -p ~/incoming/${CIRCLE_PROJECT_REPONAME}/${DISTRO}/${ARCH}/${CIRCLE_BRANCH}"
@@ -105,11 +105,11 @@ jobs:
           > ~/incoming/$CIRCLE_PROJECT_REPONAME/$DISTRO/${ARCH}/${CIRCLE_BRANCH}/process.log
           2>&1&"
 workflows:
-  build-deploy-el8-noarch:
+  build-deploy-el8-x86_64:
     jobs:
     - build:
-        name: build-el8-noarch
-        context: org-global
+        name: build-el8-x86_64
+        context: build-deps
         dist: el8
         filters:
           branches:
@@ -119,10 +119,10 @@ workflows:
             - stable
             - main
     - deploy:
-        name: deploy-el8-noarch
-        context: org-global
+        name: deploy-el8-x86_64
+        context: deploy
         dist: el8
-        arch: noarch
+        arch: x86_64
         filters:
           branches:
             only:
@@ -131,12 +131,12 @@ workflows:
             - stable
             - main
         requires:
-        - build-el8-noarch
-  build-deploy-el9-noarch:
+        - build-el8-x86_64
+  build-deploy-el9-x86_64:
     jobs:
     - build:
-        name: build-el9-noarch
-        context: org-global
+        name: build-el9-x86_64
+        context: build-deps
         dist: el9
         filters:
           branches:
@@ -146,10 +146,10 @@ workflows:
             - stable
             - main
     - deploy:
-        name: deploy-el9-noarch
-        context: org-global
+        name: deploy-el9-x86_64
+        context: deploy
         dist: el9
-        arch: noarch
+        arch: x86_64
         filters:
           branches:
             only:
@@ -158,12 +158,12 @@ workflows:
             - stable
             - main
         requires:
-        - build-el9-noarch
-  build-deploy-el10-noarch:
+        - build-el9-x86_64
+  build-deploy-el10-x86_64:
     jobs:
     - build:
-        name: build-el10-noarch
-        context: org-global
+        name: build-el10-x86_64
+        context: build-deps
         dist: el10
         filters:
           branches:
@@ -173,10 +173,10 @@ workflows:
             - stable
             - main
     - deploy:
-        name: deploy-el10-noarch
-        context: org-global
+        name: deploy-el10-x86_64
+        context: deploy
         dist: el10
-        arch: noarch
+        arch: x86_64
         filters:
           branches:
             only:
@@ -185,12 +185,39 @@ workflows:
             - stable
             - main
         requires:
-        - build-el10-noarch
-  build-deploy-fc43-noarch:
+        - build-el10-x86_64
+  build-deploy-fc44-x86_64:
     jobs:
     - build:
-        name: build-fc43-noarch
-        context: org-global
+        name: build-fc44-x86_64
+        context: build-deps
+        dist: fc44
+        filters:
+          branches:
+            only:
+            - main
+            - master
+            - stable
+            - main
+    - deploy:
+        name: deploy-fc44-x86_64
+        context: deploy
+        dist: fc44
+        arch: x86_64
+        filters:
+          branches:
+            only:
+            - main
+            - master
+            - stable
+            - main
+        requires:
+        - build-fc44-x86_64
+  build-deploy-fc43-x86_64:
+    jobs:
+    - build:
+        name: build-fc43-x86_64
+        context: build-deps
         dist: fc43
         filters:
           branches:
@@ -200,10 +227,10 @@ workflows:
             - stable
             - main
     - deploy:
-        name: deploy-fc43-noarch
-        context: org-global
+        name: deploy-fc43-x86_64
+        context: deploy
         dist: fc43
-        arch: noarch
+        arch: x86_64
         filters:
           branches:
             only:
@@ -212,39 +239,12 @@ workflows:
             - stable
             - main
         requires:
-        - build-fc43-noarch
-  build-deploy-fc42-noarch:
+        - build-fc43-x86_64
+  build-deploy-amzn2023-x86_64:
     jobs:
     - build:
-        name: build-fc42-noarch
-        context: org-global
-        dist: fc42
-        filters:
-          branches:
-            only:
-            - main
-            - master
-            - stable
-            - main
-    - deploy:
-        name: deploy-fc42-noarch
-        context: org-global
-        dist: fc42
-        arch: noarch
-        filters:
-          branches:
-            only:
-            - main
-            - master
-            - stable
-            - main
-        requires:
-        - build-fc42-noarch
-  build-deploy-amzn2023-noarch:
-    jobs:
-    - build:
-        name: build-amzn2023-noarch
-        context: org-global
+        name: build-amzn2023-x86_64
+        context: build-deps
         dist: amzn2023
         filters:
           branches:
@@ -254,10 +254,10 @@ workflows:
             - stable
             - main
     - deploy:
-        name: deploy-amzn2023-noarch
-        context: org-global
+        name: deploy-amzn2023-x86_64
+        context: deploy
         dist: amzn2023
-        arch: noarch
+        arch: x86_64
         filters:
           branches:
             only:
@@ -266,4 +266,4 @@ workflows:
             - stable
             - main
         requires:
-        - build-amzn2023-noarch
+        - build-amzn2023-x86_64
